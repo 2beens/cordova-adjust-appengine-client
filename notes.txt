@@ -1,0 +1,2 @@
+For live reaload, use:
+cordova run -- --live-reload
