@@ -6,8 +6,16 @@ function getUsersList(callback) {
         console.log('get all users status: ' + response.status);
         callback(response.data);
     }, function(response) {
-        console.error(response.error);
-        callback('');
+    	if(response.error) {
+        	console.error(response.error);
+        	callback('cannot get users list');
+    	} else if(response) {    		
+    		console.error(response);
+    		console.error('cannot get users list');
+    	} else { 	
+    		console.error('cannot get users list');
+    		callback('cannot get users list');
+    	}
     });
 }
 
@@ -25,12 +33,16 @@ function persistNewUser(newUserName, callback) {
 	    console.log(response.status);
 	    callback(response.data);
 	}, function(response) {
-	    // prints 403
-	    console.log(response.status);
-	    
-	    //prints Permission denied 
-	    console.log(response.error);
+		if(response && response.error) {
+		    // prints 403
+		    console.log(response.status);
+		    
+		    //prints Permission denied 
+		    console.log(response.error);
 
-	    callback(response.error);
+		    callback(response.error);
+		} else {
+			callback('cannot persist user');
+		}
 	});
 }
