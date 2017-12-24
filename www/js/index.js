@@ -57,6 +57,7 @@ function addNewUser() {
     var newUserName = document.getElementById('newUserNameInput').value;
     persistNewUser(newUserName, function(response) {
         alert(response);
+        document.getElementById('newUserNameInput').value = '';
     });
 }
 
