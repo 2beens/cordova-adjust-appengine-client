@@ -44,17 +44,8 @@ var app = {
     }
 };
 
-var localStorage = window.localStorage;
-
-document.getElementById("setLocalStorage").addEventListener("click", setLocalStorage); 
-document.getElementById("showLocalStorage").addEventListener("click", showLocalStorage); 
-document.getElementById("removeProjectFromLocalStorage").addEventListener("click", removeProjectFromLocalStorage); 
-document.getElementById("getLocalStorageByKey").addEventListener("click", getLocalStorageByKey);
-document.getElementById("clearAllLocalStorage").addEventListener("click", clearAllLocalStorage);
-document.addEventListener("volumeupbutton", callbackFunction, false);  
-document.addEventListener("backbutton", onBackKeyDown, false);  
-document.getElementById("simpleAlert").addEventListener("click", showSimpleAlert);
-document.getElementById("getAllUsers").addEventListener("click", getAllusers);
+document.getElementById('getAllUsers').addEventListener('click', getAllusers);
+document.getElementById('addUser').addEventListener('click', addNewUser);
 
 function getAllusers() {
     getUsersList(function(usersList) {
@@ -62,41 +53,11 @@ function getAllusers() {
     });
 }
 
-function showSimpleAlert() {
-    alert('Simple Aler! <3');
-}
-
-function callbackFunction() { 
-   alert('Volume Up Button is pressed!');
-}
-
-function onBackKeyDown(e) { 
-   e.preventDefault(); 
-   alert('Back Button is Pressed!'); 
-}
-
-function setLocalStorage() { 
-   localStorage.setItem("Name", "John"); 
-   localStorage.setItem("Job", "Developer"); 
-   localStorage.setItem("Project", "Cordova Project"); 
-}
-
-function showLocalStorage() { 
-   console.log(localStorage.getItem("Name")); 
-   console.log(localStorage.getItem("Job")); 
-   console.log(localStorage.getItem("Project")); 
-}
-
-function removeProjectFromLocalStorage() {
-   localStorage.removeItem("Project");
-}
-
-function getLocalStorageByKey() {
-   console.log(localStorage.key(0));
-}
-
-function clearAllLocalStorage() {
-    localStorage.clear();
+function addNewUser() {
+    var newUserName = document.getElementById('newUserNameInput').value;
+    persistNewUser(newUserName, function(response) {
+        alert(response);
+    });
 }
 
 app.initialize();

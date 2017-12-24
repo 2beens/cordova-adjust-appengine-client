@@ -10,3 +10,27 @@ function getUsersList(callback) {
         callback('');
     });
 }
+
+function persistNewUser(newUserName, callback) {
+	if(newUserName === null || newUserName === undefined || newUserName.length === 0) {
+		callback('username cannot be null/undefined/empty');
+		return;
+	}
+
+	// http://localhost:8080/user?userName={newUserName}
+	cordovaHTTP.post(TASKS_SERVER_BASE + "/user", {
+	    userName: newUserName
+	}, { Authorization: "OAuth2: token" }, function(response) {
+	    // prints 200
+	    console.log(response.status);
+	    callback(response.data);
+	}, function(response) {
+	    // prints 403
+	    console.log(response.status);
+	    
+	    //prints Permission denied 
+	    console.log(response.error);
+
+	    callback(response.error);
+	});
+}
