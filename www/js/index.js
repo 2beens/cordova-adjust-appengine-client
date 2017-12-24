@@ -29,6 +29,7 @@ var app = {
     // 'pause', 'resume', etc.
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
+        this.populateUsersDropdown();
     },
 
     // Update DOM on a Received Event
@@ -41,11 +42,37 @@ var app = {
         receivedElement.setAttribute('style', 'display:block;');
 
         console.log('Received Event: ' + id);
+    },
+
+    populateUsersDropdown: function() {
+        getAllUsers(function(usersList) {
+            if(usersList === null && usersList === undefined) {
+                alert('Cannot populate users dropdown. Received null/undefined.');
+                return;
+            }
+
+            var usersDropDown = document.getElementById('myDropdown');
+            while (usersDropDown.firstChild) {
+                usersDropDown.removeChild(usersDropDown.firstChild);
+            }
+
+            var usersListJson = JSON.parse(usersList);
+
+            for (var i = 0; i < usersListJson.length; i++){
+                var user = usersListJson[i];
+                var userName = user['userName'];
+
+                var userNameNode = document.createElement('p');
+                userNameNode.innerHTML = userName;
+                usersDropDown.appendChild(userNameNode);
+            }
+        });
     }
 };
 
 document.getElementById('getAllUsers').addEventListener('click', getAllusers);
 document.getElementById('addUser').addEventListener('click', addNewUser);
+document.getElementById('select-user-list').addEventListener('click', selectUserListHandler);
 
 function getAllusers() {
     getUsersList(function(usersList) {
@@ -59,6 +86,26 @@ function addNewUser() {
         alert(response);
         document.getElementById('newUserNameInput').value = '';
     });
+}
+
+/* When the user clicks on the button, 
+toggle between hiding and showing the dropdown content */
+function selectUserListHandler() {
+    document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// Close the dropdown menu if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+            }
+        }
+    }
 }
 
 app.initialize();
