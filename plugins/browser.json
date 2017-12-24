@@ -12,7 +12,14 @@
     },
     "cordova-plugin-browsersync": {
       "PACKAGE_NAME": "ClientWithAdjust"
+    },
+    "cordova-plugin-http": {
+      "PACKAGE_NAME": "ClientWithAdjust"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "ClientWithAdjust"
+    }
+  }
 }

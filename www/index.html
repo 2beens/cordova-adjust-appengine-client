@@ -33,7 +33,7 @@
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
         <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
+        <title>USers Tasks [Cordova-Adjust-AppEngine]</title>
     </head>
     <body>
         <div class="app">
@@ -50,8 +50,13 @@
             <button id = "removeProjectFromLocalStorage">REMOVE PROJECT</button>
             <button id = "getLocalStorageByKey">GET BY KEY</button>
             <button id = "clearAllLocalStorage">CLEAR</button>
+            <button id = "getAllUsers">USERS LIST</button>
 
         </div>
+
+        <script type="text/javascript" src="js/constants.js"></script>
+        <script type="text/javascript" src="js/logger.js"></script>
+        <script type="text/javascript" src="js/services/usersService.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>

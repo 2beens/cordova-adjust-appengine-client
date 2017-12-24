@@ -54,6 +54,13 @@ document.getElementById("clearAllLocalStorage").addEventListener("click", clearA
 document.addEventListener("volumeupbutton", callbackFunction, false);  
 document.addEventListener("backbutton", onBackKeyDown, false);  
 document.getElementById("simpleAlert").addEventListener("click", showSimpleAlert);
+document.getElementById("getAllUsers").addEventListener("click", getAllusers);
+
+function getAllusers() {
+    getUsersList(function(usersList) {
+        alert(usersList);    
+    });
+}
 
 function showSimpleAlert() {
     alert('Simple Aler! <3');

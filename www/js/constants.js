@@ -1,0 +1,1 @@
+const TASKS_SERVER_BASE = 'http://localhost:8080';
