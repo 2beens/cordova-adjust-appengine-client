@@ -53,7 +53,7 @@ var app = {
                 return;
             }
 
-            var usersDropDown = document.getElementById('myDropdown');
+            var usersDropDown = document.getElementById('users-list-dropdown');
             while (usersDropDown.firstChild) {
                 usersDropDown.removeChild(usersDropDown.firstChild);
             }
@@ -74,7 +74,7 @@ var app = {
                     // get user
                     getUser(selectedUserName, function(user) {
                         app.selectedUser = user;
-                        app.populateUserTasks(user);
+                        app.populateUserTasks(user.tasks);
                     });
                 });
 
@@ -83,8 +83,19 @@ var app = {
         });
     },
 
-    populateUserTasks: function(user) {
-        alert('About to populate tasks for selected user: ' + JSON.stringify(user));
+    populateUserTasks: function(tasks) {
+        var tasksDiv = document.getElementById('tasks-list');
+        while (tasksDiv.firstChild) {
+            tasksDiv.removeChild(tasksDiv.firstChild);
+        }
+        
+        for (var i = 0; i < tasks.length; i++){
+            var task = tasks[i];
+            var taskDiv = document.createElement('DIV');
+            taskDiv.setAttribute('class', 'task-div');
+            taskDiv.innerHTML = task.text;
+            tasksDiv.appendChild(taskDiv);
+        }
     }
 };
 
@@ -109,7 +120,7 @@ function addNewUser() {
 /* When the user clicks on the button, 
 toggle between hiding and showing the dropdown content */
 function selectUserListHandler() {
-    document.getElementById("myDropdown").classList.toggle("show");
+    document.getElementById("users-list-dropdown").classList.toggle("show");
 }
 
 // Close the dropdown menu if the user clicks outside of it

@@ -66,7 +66,6 @@ function persistNewUser(newUserName, callback) {
 		return;
 	}
 
-	// http://localhost:8080/user?userName={newUserName}
 	cordovaHTTP.post(TASKS_SERVER_BASE + "/user", {
 	    userName: newUserName
 	}, { Authorization: "OAuth2: token" }, function(response) {
