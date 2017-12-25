@@ -15,6 +15,9 @@
     },
     "cordova-plugin-http": {
       "PACKAGE_NAME": "ClientWithAdjust"
+    },
+    "cordova-plugin-dialogs": {
+      "PACKAGE_NAME": "ClientWithAdjust"
     }
   },
   "dependent_plugins": {
