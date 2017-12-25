@@ -38,5 +38,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "com.adjust.sdk": {
+    "source": {
+      "type": "registry",
+      "id": "com.adjust.sdk"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

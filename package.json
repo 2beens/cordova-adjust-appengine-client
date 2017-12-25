@@ -12,6 +12,7 @@
     "dependencies": {
         "browser-sync": "^2.21.0",
         "cheerio": "^0.19.0",
+        "com.adjust.sdk": "^4.11.3",
         "cordova-browser": "^5.0.2",
         "cordova-ios": "^4.5.4",
         "cordova-plugin-browsersync": "^1.1.0",
@@ -31,7 +32,8 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-browsersync": {},
             "cordova-plugin-http": {},
-            "cordova-plugin-dialogs": {}
+            "cordova-plugin-dialogs": {},
+            "com.adjust.sdk": {}
         },
         "platforms": [
             "browser",

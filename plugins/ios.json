@@ -18,6 +18,9 @@
     },
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "ClientWithAdjust"
+    },
+    "com.adjust.sdk": {
+      "PACKAGE_NAME": "ClientWithAdjust"
     }
   },
   "dependent_plugins": {
