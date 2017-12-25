@@ -18,6 +18,8 @@
  */
 
 var app = {
+    selectedUser: null,
+
     // Application Constructor
     initialize: function() {
         document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
@@ -56,17 +58,33 @@ var app = {
                 usersDropDown.removeChild(usersDropDown.firstChild);
             }
 
-            var usersListJson = JSON.parse(usersList);
-
-            for (var i = 0; i < usersListJson.length; i++){
-                var user = usersListJson[i];
+            for (var i = 0; i < usersList.length; i++){
+                var user = usersList[i];
                 var userName = user['userName'];
 
-                var userNameNode = document.createElement('p');
-                userNameNode.innerHTML = userName;
-                usersDropDown.appendChild(userNameNode);
+                var userNameButton = document.createElement('INPUT');
+                userNameButton.setAttribute('type', 'button');
+                userNameButton.setAttribute('value', userName);
+                userNameButton.setAttribute('id', userName);
+                userNameButton.addEventListener('click', function(event){
+                    closeUsersListDropDown();
+                    var selectedUserName = event.currentTarget.id;
+                    document.getElementById('selected-user-name').innerHTML = selectedUserName;
+
+                    // get user
+                    getUser(selectedUserName, function(user) {
+                        app.selectedUser = user;
+                        app.populateUserTasks(user);
+                    });
+                });
+
+                usersDropDown.appendChild(userNameButton);
             }
         });
+    },
+
+    populateUserTasks: function(user) {
+        alert('About to populate tasks for selected user: ' + JSON.stringify(user));
     }
 };
 
@@ -97,15 +115,20 @@ function selectUserListHandler() {
 // Close the dropdown menu if the user clicks outside of it
 window.onclick = function(event) {
     if (!event.target.matches('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
-            }
+        closeUsersListDropDown();
+    }
+}
+
+function closeUsersListDropDown() {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
         }
     }
 }
+
 
 app.initialize();

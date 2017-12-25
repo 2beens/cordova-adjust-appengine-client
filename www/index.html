@@ -51,18 +51,26 @@
 
             <button id = "getAllUsers">USERS LIST</button>
             
-            <h4>add new user</h4>
+            <label for="newUserNameInput">New User:</label>
             <input id="newUserNameInput" placeholder="New userName..." type="text" name="userName">
             <button id="addUser">ADD</button>
+
+            <div>
+                <p style="display: inline;">Selected: </p>
+                <p id="selected-user-name" style="display: inline;">[none]</p>
+            </div>
 
             <div class="dropdown">
                 <button id="select-user-list" class="dropbtn">Select User</button>
                 <div id="myDropdown" class="dropdown-content">
                     <p>Users list not populated yet...</p>
-                    <!-- <a href="#">Link 1</a>
-                    <a href="#">Link 2</a>
-                    <a href="#">Link 3</a> -->
                 </div>
+            </div>
+
+            <h5>Tasks</h5>
+            <div id="tasks-list">
+
+
             </div>
         </div>
 
