@@ -33,6 +33,74 @@ var app = {
     onDeviceReady: function() {
         this.receivedEvent('deviceready');
         this.populateUsersDropdown();
+
+        // Adjust SDK init
+        var environment = AdjustConfig.EnvironmentSandbox;
+        var adjustConfig = new AdjustConfig(ADJ_APP_TOKEN, environment);
+        
+        // enable all logging
+        adjustConfig.setLogLevel(AdjustConfig.LogLevelVerbose);
+
+        adjustConfig.setAttributionCallbackListener(function(attribution) {
+            console.log("### Attribution callback received");
+
+            console.log("Tracker token = " + attribution.trackerToken);
+            console.log("Tracker name = " + attribution.trackerName);
+            console.log("Network = " + attribution.network);
+            console.log("Campaign = " + attribution.campaign);
+            console.log("Adgroup = " + attribution.adgroup);
+            console.log("Creative = " + attribution.creative);
+            console.log("Click label = " + attribution.clickLabel);
+            console.log("Adid = " + attribution.adid);
+        });
+
+        adjustConfig.setEventTrackingSucceededCallbackListener(function(eventSuccess) {
+            console.log("### Event tracking succeeded callback received");
+
+            console.log("Message: " + eventSuccess.message);
+            console.log("Timestamp: " + eventSuccess.timestamp);
+            console.log("Adid: " + eventSuccess.adid);
+            console.log("Event token: " + eventSuccess.eventToken);
+            console.log("JSON response: " + eventSuccess.jsonResponse);
+        });
+
+        adjustConfig.setEventTrackingFailedCallbackListener(function(eventFailed) {
+            console.log("### Event tracking failed callback received");
+
+            console.log("Message: " + eventFailed.message);
+            console.log("Timestamp: " + eventFailed.timestamp);
+            console.log("Adid: " + eventFailed.adid);
+            console.log("Event token: " + eventFailed.eventToken);
+            console.log("Will retry: " + eventFailed.willRetry);
+            console.log("JSON response: " + eventFailed.jsonResponse);
+        });
+
+        adjustConfig.setSessionTrackingSucceededCallbackListener(function(sessionSuccess) {
+            console.log("### Session tracking succeeded callback received");
+
+            console.log("Message: " + sessionSuccess.message);
+            console.log("Timestamp: " + sessionSuccess.timestamp);
+            console.log("Adid: " + sessionSuccess.adid);
+            console.log("JSON response: " + sessionSuccess.jsonResponse);
+        });
+
+        adjustConfig.setSessionTrackingFailedCallbackListener(function(sessionFailed) {
+            console.log("### Session tracking failed callback received");
+
+            console.log("Message: " + sessionFailed.message);
+            console.log("Timestamp: " + sessionFailed.timestamp);
+            console.log("Adid: " + sessionFailed.adid);
+            console.log("Will retry: " + sessionFailed.willRetry);
+            console.log("JSON response: " + sessionFailed.jsonResponse);
+        });
+
+        adjustConfig.setDeferredDeeplinkCallbackListener(function(uri) {
+            console.log("### Deferred Deeplink Callback received");
+
+            console.log("URL: " + uri);
+        });
+
+        Adjust.create(adjustConfig);
     },
 
     // Update DOM on a Received Event
@@ -77,21 +145,12 @@ var app = {
                         app.selectedUser = user;
                         app.populateSelectedUserTasks();
                     });
-
-                    // app.refreshSelectedUser();
-                    // app.populateSelectedUserTasks();
                 });
 
                 usersDropDown.appendChild(userNameButton);
             }
         });
     },
-
-    // refreshSelectedUser: function() {
-    //     getUser(app.selectedUserName, function(user) {
-    //         app.selectedUser = user;
-    //     });
-    // },
 
     populateSelectedUserTasks: function() {
         var tasks = app.selectedUser.tasks;
@@ -143,8 +202,11 @@ document.getElementById('select-user-list').addEventListener('click', selectUser
 document.getElementById('addNewTask').addEventListener('click', addNewTaskHandler);
 
 function getAllusersHandler() {
+    var adjustEvent = new AdjustEvent('vz9rz2');
+    
     getUsersList(function(usersList) {
-        app.showDialog('Users List', usersList, 'Close');
+        app.showDialog('Users List [eventTracked: vz9rz2]', usersList, 'Close');
+        Adjust.trackEvent(adjustEvent);
     });
 }
 
@@ -153,6 +215,8 @@ function addNewUserHandler() {
     persistNewUser(newUserName, function(response) {
         app.showSimpleDialog('Add new user', response);
         document.getElementById('newUserNameInput').value = '';
+
+        Adjust.trackEvent(new AdjustEvent('9rsf88'));
     });
 }
 
